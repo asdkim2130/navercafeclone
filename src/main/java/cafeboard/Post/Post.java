@@ -2,6 +2,7 @@ package cafeboard.Post;
 
 import cafeboard.Board.Board;
 import cafeboard.Comment.Comment;
+import cafeboard.Member.Member;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -27,7 +28,11 @@ public class Post {
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     private List<Comment> comment;
 
-    public Post(Long postId, String postTitle, String content) {
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Member writer;
+
+        public Post(Long postId, String postTitle, String content) {
         this.postId = postId;
         this.postTitle = postTitle;
         this.content = content;
@@ -43,6 +48,8 @@ public class Post {
         this.content = content;
         this.board = board;
     }
+
+
 
     public Long getPostId() {
         return postId;

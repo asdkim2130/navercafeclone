@@ -3,6 +3,7 @@ package cafeboard.Post;
 import cafeboard.Board.Board;
 import cafeboard.Board.BoardRepository;
 import cafeboard.Comment.CommentRepository;
+import cafeboard.Member.MemberRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
@@ -13,11 +14,13 @@ public class PostService {
     private final PostRepository postRepository;
     private final BoardRepository boardRepository;
     private final CommentRepository commentRepository;
+    private final MemberRepository memberRepository;
 
-    public PostService(PostRepository postRepository, CommentRepository commentRepository, BoardRepository boardRepository, CommentRepository commentRepository1) {
+    public PostService(PostRepository postRepository, CommentRepository commentRepository, BoardRepository boardRepository, CommentRepository commentRepository1, MemberRepository memberRepository) {
         this.postRepository = postRepository;
         this.boardRepository = boardRepository;
         this.commentRepository = commentRepository1;
+        this.memberRepository = memberRepository;
     }
 
     //게시글 생성
@@ -25,6 +28,7 @@ public class PostService {
         Board board = boardRepository.findById(createRequest.boardId()).orElseThrow(
                 () -> new IllegalArgumentException("존재하지 않는 게시판입니다. 게시글을 생성할 수 없습니다.")
         );
+
 
         Post post = new Post(createRequest.postTitle(),
                 createRequest.postContent(),
