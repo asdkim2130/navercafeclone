@@ -16,7 +16,7 @@ public class Post {
     private String postTitle;
     private String content;
 
-    public Post() {
+    protected Post() {
     }
 
     @ManyToOne
@@ -24,7 +24,7 @@ public class Post {
     private Board board;
 
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     private List<Comment> comment;
 
     public Post(Long postId, String postTitle, String content) {

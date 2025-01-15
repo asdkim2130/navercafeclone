@@ -15,11 +15,11 @@ public class Board {
 
     private String title;
 
-    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
     private List<Post> post;
 
 
-    public Board() {
+    protected Board() {
     }
 
     public Board(String title) {

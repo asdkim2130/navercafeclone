@@ -18,7 +18,7 @@ public class Comment {
     private Post post;
 
 
-    public Comment() {
+    protected Comment() {
     }
 
     public Comment(Long commentId, String content) {
