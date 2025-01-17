@@ -44,4 +44,20 @@ public class Member {
         this.nickname = nickname == null ? username : nickname;
 //        this.nickname = nickname;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
 }

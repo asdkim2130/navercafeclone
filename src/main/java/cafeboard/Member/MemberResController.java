@@ -1,8 +1,7 @@
 package cafeboard.Member;
 
 import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class MemberResController {
@@ -14,8 +13,15 @@ public class MemberResController {
     }
 
     //회원가입 API
-    public void create(@Valid @RequestBody CreateMemberRequest request){
-        memberService.create(request);
-
+    @PostMapping("/members")
+    public MemberResponse createLoginId(@Valid @RequestBody CreateMemberRequest request){
+        return memberService.create(request);
     }
+
+    @DeleteMapping("/members/{memberId}")
+    public void deleteLoginId(@PathVariable (name = "memberId")Long id){
+        memberService.deleteId(id);
+    }
+
+
 }
