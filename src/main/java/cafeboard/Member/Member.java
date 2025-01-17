@@ -22,11 +22,11 @@ public class Member {
     @Column(nullable = false)
     private String nickname;
 
-    @OneToMany(mappedBy = "member")
-    List<Comment> commentList;
+//    @OneToMany(mappedBy = "member")
+//    List<Comment> commentList;
 
-    @OneToMany(mappedBy = "member")
-    List<Post> postList;
+//    @OneToMany(mappedBy = "member")
+//    List<Post> postList;
 
 
     protected Member() {
