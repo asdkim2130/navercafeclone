@@ -9,9 +9,11 @@ import java.util.NoSuchElementException;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final JwtProvider jwtProvider;
 
-    public MemberService(MemberRepository memberRepository) {
+    public MemberService(MemberRepository memberRepository, JwtProvider jwtProvider) {
         this.memberRepository = memberRepository;
+        this.jwtProvider = jwtProvider;
     }
 
     public MemberResponse create(CreateMemberRequest request){
@@ -33,5 +35,16 @@ public class MemberService {
     }
 
 
+    public MemberLoginResponse logIn(MemberLoginRequest loginRequest){
+        Member member = memberRepository.findByUsername(loginRequest.username()).orElseThrow(
+                ()-> new NoSuchElementException("등록되지 않은 사용자입니다.")
+        );
+        if(!member.getPassword().equals(SecurityUtils.sha256EncryptBase64(loginRequest.password()))){
+            throw new NoSuchElementException("아이디 또는 비밀번호가 잘못 되었습니다." +
+                                            "아이디와 비밀번호를 정확히 입력해 주세요.");
+        }
+        System.out.println("로그인 성공");
+        return new MemberLoginResponse(jwtProvider.createToken(member.getUsername()));
+    }
 
 }

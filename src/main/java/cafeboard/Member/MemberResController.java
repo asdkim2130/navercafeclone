@@ -23,5 +23,9 @@ public class MemberResController {
         memberService.deleteId(id);
     }
 
+    @PostMapping("/login")
+    public MemberLoginResponse memberLogIn(@RequestBody MemberLoginRequest loginRequest){
+        return memberService.logIn(loginRequest);
+    }
 
 }
