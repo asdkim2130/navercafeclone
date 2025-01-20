@@ -49,7 +49,12 @@ public class Post {
         this.board = board;
     }
 
-
+    public Post(String postTitle, String content, Board board, Member writer) {
+        this.postTitle = postTitle;
+        this.content = content;
+        this.board = board;
+        this.writer = writer;
+    }
 
     public Long getPostId() {
         return postId;
@@ -65,6 +70,10 @@ public class Post {
 
     public List<Comment> getComment() {
         return comment;
+    }
+
+    public Member getWriter() {
+        return writer;
     }
 
     public void setPostTitle(String postTitle) {
