@@ -2,6 +2,7 @@ package cafeboard.Member;
 
 import cafeboard.Comment.Comment;
 import cafeboard.Post.Post;
+import cafeboard.SecurityUtils;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -45,6 +46,11 @@ public class Member {
 //        this.nickname = nickname;
     }
 
+    public Member(String username, String nickname) {
+        this.username = username;
+        this.nickname = nickname;
+    }
+
     public Long getId() {
         return id;
     }
@@ -60,4 +66,11 @@ public class Member {
     public String getNickname() {
         return nickname;
     }
+
+    public void encodePassword(String password){
+        this.password = SecurityUtils.sha256EncryptBase64(password);
+
+    }
+
+
 }

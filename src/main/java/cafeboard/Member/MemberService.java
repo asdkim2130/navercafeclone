@@ -18,10 +18,12 @@ public class MemberService {
     }
 
     public MemberResponse create(CreateMemberRequest request){
-        Member member = memberRepository.save(new Member(
+        Member member = new Member(
                 request.username(),
-                SecurityUtils.sha256EncryptBase64(request.password()),  //사용자가 입력한 패스워드
-                request.nickname()));
+                request.nickname());
+        member.encodePassword(request.password());
+
+        memberRepository.save(member);
 
         return new MemberResponse(member.getUsername(),
                 member.getNickname());
