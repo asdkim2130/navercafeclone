@@ -1,5 +1,6 @@
 package cafeboard.Comment;
 
+import cafeboard.Member.Member;
 import cafeboard.Post.Post;
 import jakarta.persistence.*;
 
@@ -17,6 +18,10 @@ public class Comment {
     @JoinColumn(name = "post_id", nullable = false)
     private Post post;
 
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Member writer;
+
 
     protected Comment() {
     }
@@ -29,6 +34,12 @@ public class Comment {
     public Comment(String content, Post post) {
         this.content = content;
         this.post = post;
+    }
+
+    public Comment(String content, Post post, Member writer) {
+        this.content = content;
+        this.post = post;
+        this.writer = writer;
     }
 
     public Comment(String content) {
@@ -57,5 +68,9 @@ public class Comment {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Member getWriter() {
+        return writer;
     }
 }
