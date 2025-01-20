@@ -4,11 +4,11 @@ import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-public class MemberResController {
+public class MemberRestController {
 
     private final MemberService memberService;
 
-    public MemberResController(MemberService memberService) {
+    public MemberRestController(MemberService memberService) {
         this.memberService = memberService;
     }
 
