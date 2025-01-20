@@ -1,6 +1,7 @@
 package cafeboard.Member;
 
 import jakarta.validation.Valid;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -28,4 +29,8 @@ public class MemberRestController {
         return memberService.logIn(loginRequest);
     }
 
+    @GetMapping("/me")
+    public String getProfile(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorization){
+        return memberService.getProfile(authorization);
+    }
 }

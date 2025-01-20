@@ -3,6 +3,7 @@ package cafeboard.Member;
 import cafeboard.SecurityUtils;
 import org.springframework.stereotype.Service;
 
+import java.net.http.HttpHeaders;
 import java.util.NoSuchElementException;
 
 @Service
@@ -45,6 +46,27 @@ public class MemberService {
         }
         System.out.println("로그인 성공");
         return new MemberLoginResponse(jwtProvider.createToken(member.getUsername()));
+    }
+
+
+    public String getProfile (String authorization){
+
+        String[] tokenFormat = authorization.split(" ");
+
+        String tokenType = tokenFormat[0];
+        String token = tokenFormat[1];
+
+        if(tokenType.equals("Bearer") == false){
+            throw new IllegalArgumentException("로그인 정보가 유효하지 않습니다.");
+        }
+
+        if(jwtProvider.isValidToken(token) == false){
+            throw new IllegalArgumentException("로그인 정보가 유효하지 않습니다.");
+        }
+
+        String username = jwtProvider.getSubject(token);
+
+        return username;
     }
 
 }
