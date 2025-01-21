@@ -17,6 +17,9 @@ public class Post {
     private String postTitle;
     private String content;
 
+    @Column(nullable = false)
+    private int likeCount;
+
     protected Post() {
     }
 
