@@ -1,5 +1,6 @@
 package cafeboard.Post;
 
+import cafeboard.BaseEntity;
 import cafeboard.Board.Board;
 import cafeboard.Comment.Comment;
 import cafeboard.Member.Member;
@@ -8,7 +9,7 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-public class Post {
+public class Post extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
