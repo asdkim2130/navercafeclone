@@ -18,24 +18,22 @@ public class PostService {
     private final BoardRepository boardRepository;
     private final CommentRepository commentRepository;
     private final MemberRepository memberRepository;
-    private final JwtProvider jwtProvider;
 
-    public PostService(PostRepository postRepository, CommentRepository commentRepository, BoardRepository boardRepository, CommentRepository commentRepository1, MemberRepository memberRepository, JwtProvider jwtProvider) {
+
+    public PostService(PostRepository postRepository, CommentRepository commentRepository, BoardRepository boardRepository, MemberRepository memberRepository) {
         this.postRepository = postRepository;
         this.boardRepository = boardRepository;
-        this.commentRepository = commentRepository1;
+        this.commentRepository = commentRepository;
         this.memberRepository = memberRepository;
-        this.jwtProvider = jwtProvider;
     }
 
     //게시글 생성
-    public Post create (CreatePostRequest createRequest, String token){
+    public Post create (CreatePostRequest createRequest, String username){
         Board board = boardRepository.findById(createRequest.boardId()).orElseThrow(
                 () -> new IllegalArgumentException("존재하지 않는 게시판입니다. 게시글을 생성할 수 없습니다.")
         );
 
-        String username = jwtProvider.getSubject(token);
-
+//        String username = jwtProvider.getSubject(token);
         Member writer = memberRepository.findByUsername(username).orElseThrow(
                 () -> new IllegalArgumentException("유효하지 않은 사용자입니다. 게시글을 생성할 수 없습니다.")
         );
@@ -67,12 +65,12 @@ public class PostService {
 
     //게시글 수정
     @Transactional
-    public PostResponse update(Long postId, PostRequest request, String token){
+    public PostResponse update(Long postId, PostRequest request, String username){
         Post post = postRepository.findById(postId).orElseThrow(
                 () -> new IllegalArgumentException("수정할 게시글을 찾을 수 없습니다.")
         );
 
-        String username = jwtProvider.getSubject(token);
+//        String username = jwtProvider.getSubject(token);
         if(!post.getWriter().getUsername().equals(username)){
             throw new NoSuchElementException("게시물 작성자만 수정할 수 있습니다.");
         }
@@ -87,12 +85,12 @@ public class PostService {
 
     // 게시글삭제
     @Transactional
-    public void delete(Long postId, String token){
+    public void delete(Long postId, String username){
         Post post = postRepository.findById(postId).orElseThrow(
                 () -> new IllegalArgumentException("삭제할 게시글을 찾을 수 없습니다.")
         );
 
-        String username = jwtProvider.getSubject(token);
+//        String username = jwtProvider.getSubject(token);
         if(!post.getWriter().getUsername().equals(username)){
             throw new NoSuchElementException("게시물 작성자만 삭제할 수 있습니다.");
         }
